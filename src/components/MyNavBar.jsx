@@ -23,7 +23,7 @@ class MyNavBar extends Component {
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
             <ul className="navbar-nav me-auto mb-2 mb-lg-0">
               <li className="nav-item">
-                <a class="nav-link" href="./index.html">
+                <a className="nav-link" href="./index.html">
                   Home
                 </a>
               </li>
@@ -88,7 +88,7 @@ class MyNavBar extends Component {
                 <div className="btn-group">
                   <button
                     type="button"
-                    class="btn dropdown-toggle text-secondary border-0"
+                    className="btn dropdown-toggle text-secondary border-0"
                     data-bs-toggle="dropdown"
                     aria-expanded="false"
                   >
