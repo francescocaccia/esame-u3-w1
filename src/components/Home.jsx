@@ -1,21 +1,34 @@
 import { Component } from "react";
 import MyHeader from "./MyHeader";
 import Movie from "./Movie";
-
+import Spinner from "react-bootstrap/Spinner";
 class Home extends Component {
   state = {
     HarryPotter: [],
+    HarryPotterLoading: true,
+    HarryPotterError: false,
     LordOfTheRing: [],
+    LordOfTheRingLoading: true,
+    LordOfTheRingError: false,
     Cosmos: [],
+    CosmosLoading: true,
+    CosmosError: false,
   };
 
-  request = async (endpoint, stato) => {
+  request = async (endpoint, statoKey) => {
     try {
       const response = await fetch(endpoint);
       const data = await response.json();
-      this.setState({ [stato]: data.Search });
+      this.setState({
+        [statoKey]: data.Search,
+        [statoKey + "Loading"]: false,
+        [statoKey + "Error"]: false,
+      });
     } catch (error) {
       console.error(error);
+      this.setState({
+        [statoKey + "Error"]: true,
+      });
     }
   };
 
@@ -25,6 +38,19 @@ class Home extends Component {
     this.request("http://www.omdbapi.com/?apikey=cdaf68d&s=Cosmos", "Cosmos");
   }
   render() {
+    if (this.state.HarryPotterError && this.state.LordOfTheRingError && this.state.CosmosError) {
+      return <div>Errore nel caricamento dati</div>;
+    }
+    if (this.state.HarryPotterLoading && this.state.LordOfTheRingLoading && this.state.CosmosLoading) {
+      return (
+        <div>
+          <Spinner animation="border" role="status">
+            <span className="visually-hidden">Loading...</span>
+          </Spinner>
+        </div>
+      );
+    }
+
     return (
       <div className="container-fluid">
         <MyHeader />
